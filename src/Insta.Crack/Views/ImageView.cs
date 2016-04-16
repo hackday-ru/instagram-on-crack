@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Insta.Crack.Commands;
+using Insta.Crack.Model;
+using InstaSharp.Models;
+using ColorConsole = Colorful.Console;
 
 namespace Insta.Crack
 {
@@ -11,13 +15,13 @@ namespace Insta.Crack
 
 		public string Title { get; set; }
 		public string UserName { get; set; }
-		public DateTime Date { get; set; }
-		public IList<string> Image { get; set; }
-		public int Likes { get; set; }
-		public int Comments { get; set; }
-		public string Caption { get; set; }
+		public DateTime Date => Media.Media.CreatedTime;
+		public IList<ASCIILine> Image => Media.Data.ToList();
+		public int Likes => Media.Media.Likes.Count;
+		public Comments Comments => Media.Media.Comments;
+		public string Caption => Media.Media.Caption.Text;
 		public IList<string> Tags { get; set; }
-		public ButtonBar Bar { get; set; }
+		public InstaMedia Media { get; set; }
 
 		public void View()
 		{
@@ -27,11 +31,6 @@ namespace Insta.Crack
 			this.DisplayTitle();
 			this.DisplayImage();
 			this.DisplayFooter();
-			while (true)
-			{
-				var key = Console.ReadKey();
-				this.Bar.Key(key.Key);
-			}
 		}
 
 		private void DisplayTitle()
@@ -59,9 +58,16 @@ namespace Insta.Crack
 				if (Image.Count > index)
 				{
 					var line = Image[index];
-					Console.WriteLine(line);
+					for (int i = 0; i < line.Line.Length; i++)
+					{
+						Console.ForegroundColor = ConsoleColor.Gray;
+						Console.BackgroundColor = ClosestConsoleColor(line.Colors[i].R, line.Colors[i].G, line.Colors[i].B);
+						Console.Write(line.Line[i]);
+					}
 				}
 			}
+
+			Console.BackgroundColor = ConsoleColor.Black;
 		}
 
 		private void DisplayFooter()
@@ -70,7 +76,6 @@ namespace Insta.Crack
 			Console.WriteLine("Likes: {0}", Likes);
 			Console.SetCursorPosition(0, imageHeight + titleHeight + 2);
 			Console.WriteLine("Comments: {0}", Comments);
-			this.Bar.Run();
 		}
 
 		private void ColorImage(int[,] image, ConsoleColor color)
@@ -84,6 +89,27 @@ namespace Insta.Crack
 					Console.WriteLine("*");
 				}
 			}
+		}
+
+		private static ConsoleColor ClosestConsoleColor(byte r, byte g, byte b)
+		{
+			ConsoleColor ret = 0;
+			double rr = r, gg = g, bb = b, delta = double.MaxValue;
+
+			foreach (ConsoleColor cc in Enum.GetValues(typeof(ConsoleColor)))
+			{
+				var n = Enum.GetName(typeof(ConsoleColor), cc);
+				var c = System.Drawing.Color.FromName(n == "DarkYellow" ? "Orange" : n); // bug fix
+				var t = Math.Pow(c.R - rr, 2.0) + Math.Pow(c.G - gg, 2.0) + Math.Pow(c.B - bb, 2.0);
+				if (t == 0.0)
+					return cc;
+				if (t < delta)
+				{
+					delta = t;
+					ret = cc;
+				}
+			}
+			return ret;
 		}
 	}
 }

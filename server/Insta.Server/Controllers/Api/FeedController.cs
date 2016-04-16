@@ -42,7 +42,7 @@ namespace Insta.Server.Controllers.Api
             var list = new List<MediaModel>();
             foreach (var media in instaResp.Data.Take(1))
             {
-                var stream = await hhtpClient.GetStreamAsync(media.Images.LowResolution.Url);
+                var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
 
                 var instaMedia = new MediaModel
                 {
