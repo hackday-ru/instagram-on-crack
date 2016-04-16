@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "Insta.Crack Console Application",
   "authors": [ "lasko" ],
@@ -10,9 +10,10 @@
     "emitEntryPoint": true
   },
 
-	"dependencies": {
-		"System.Net.Http": "4.0.0"
-	},
+  "dependencies": {
+    "InstaSharp": "2.0.3",
+    "System.Net.Http": "4.0.0"
+  },
 
   "commands": {
     "Insta.Crack": "Insta.Crack"
