@@ -1,0 +1,23 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Insta.Crack Console Application",
+  "authors": [ "lasko" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+	"dependencies": {
+	},
+
+  "commands": {
+    "Insta.Crack": "Insta.Crack"
+  },
+
+  "frameworks": {
+    "dnx451": { }
+  }
+}
