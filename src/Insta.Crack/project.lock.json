@@ -19,6 +19,22 @@
           "lib/bouncy_castle_hmac_sha_pcl.dll": {}
         }
       },
+      "Colorful.Console/1.0.5": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net451/Colorful.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Colorful.Console.dll": {}
+        }
+      },
       "InstaSharp/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -125,6 +141,22 @@
         },
         "runtime": {
           "lib/bouncy_castle_hmac_sha_pcl.dll": {}
+        }
+      },
+      "Colorful.Console/1.0.5": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net451/Colorful.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Colorful.Console.dll": {}
         }
       },
       "InstaSharp/2.0.3": {
@@ -235,6 +267,22 @@
           "lib/bouncy_castle_hmac_sha_pcl.dll": {}
         }
       },
+      "Colorful.Console/1.0.5": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core",
+          "System.Drawing"
+        ],
+        "compile": {
+          "lib/net451/Colorful.Console.dll": {}
+        },
+        "runtime": {
+          "lib/net451/Colorful.Console.dll": {}
+        }
+      },
       "InstaSharp/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -336,6 +384,27 @@
         "BouncyCastle-PCL.1.0.0.6.nupkg.sha512",
         "BouncyCastle-PCL.nuspec",
         "lib/bouncy_castle_hmac_sha_pcl.dll"
+      ]
+    },
+    "Colorful.Console/1.0.5": {
+      "type": "package",
+      "sha512": "HYzZJyEPQfN9aJtHIX8fUEOnrBTs0DxumnlM99M7C23L5QYBGg5SgBOd5a0WgwA3LLY0jY+eXyzBlTuz4IJpIQ==",
+      "files": [
+        "Colorful.Console.1.0.5.nupkg",
+        "Colorful.Console.1.0.5.nupkg.sha512",
+        "Colorful.Console.nuspec",
+        "lib/net40/Colorful.Console.dll",
+        "lib/net40/Colorful.Console.xml",
+        "lib/net45/Colorful.Console.dll",
+        "lib/net45/Colorful.Console.xml",
+        "lib/net451/Colorful.Console.dll",
+        "lib/net451/Colorful.Console.xml",
+        "lib/net452/Colorful.Console.dll",
+        "lib/net452/Colorful.Console.xml",
+        "lib/net46/Colorful.Console.dll",
+        "lib/net46/Colorful.Console.xml",
+        "lib/net461/Colorful.Console.dll",
+        "lib/net461/Colorful.Console.xml"
       ]
     },
     "InstaSharp/2.0.3": {
@@ -637,6 +706,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "Colorful.Console >= 1.0.5",
       "InstaSharp >= 2.0.3",
       "System.Net.Http >= 4.0.0"
     ],

@@ -5,6 +5,8 @@ using Insta.Crack.Commands;
 using Insta.Crack.Model;
 using Insta.Crack.Services;
 using Insta.Crack.Views;
+using System.Drawing;
+using ColorConsole = Colorful.Console;
 
 namespace Insta.Crack
 {
@@ -81,8 +83,9 @@ namespace Insta.Crack
 			Console.Clear();
 			Console.SetCursorPosition(20, 35);
 			Console.BackgroundColor = ConsoleColor.DarkRed;
-			Console.WriteLine("Введите имя тега:");
 
+			ColorConsole.WriteAscii("Имя тега:");
+			Console.WriteLine("Введите имя тега:");
 			Console.SetCursorPosition(20, 36);
 			var tag = Console.ReadLine();
 

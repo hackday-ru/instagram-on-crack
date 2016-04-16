@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using ColorConsole = Colorful.Console;
 
 namespace Insta.Crack.Views
 {
@@ -9,17 +11,16 @@ namespace Insta.Crack.Views
 	{
 		public string Run()
 		{
-			Console.SetCursorPosition(0, 20);
+			Console.SetCursorPosition(0, 10);
 			this.WriteLogo();
 
 			Console.SetCursorPosition(20, 35);
-			Console.BackgroundColor = ConsoleColor.DarkRed;
-			Console.WriteLine("Введите логин:");
+			ColorConsole.WriteFormatted("Введите логин:".ToUpper(), Color.Chocolate);
 			Console.SetCursorPosition(20, 36);
 			var userName = Console.ReadLine();
 			Console.SetCursorPosition(20, 38);
 			Console.BackgroundColor = ConsoleColor.Black;
-			Console.WriteLine("Введите пароль:");
+			ColorConsole.WriteFormatted("Введите пароль:".ToUpper(), Color.Chocolate);
 			Console.SetCursorPosition(20, 39);
 			var pass = Console.ReadLine();
 			return userName;
@@ -27,21 +28,9 @@ namespace Insta.Crack.Views
 
 		private void WriteLogo()
 		{
-			const string Bold = "\x1b[1m";
-			const string Normal = "\x1b[22m";
-			const string Magenta = "\x1b[35m";
-			const string White = "\x1b[37m";
-			const string Default = "\x1b[39m";
-
-			Console.WriteLine();
-			Console.WriteLine(@"                                  ");
-			Console.WriteLine(@"   __   __     ON  CRACK          ");
-			Console.WriteLine(@"  /  \ /  \                       ");
-			Console.WriteLine(@"  \       /    WITHOUT COCAINE    ");
-			Console.WriteLine(@"   \     /                        ");
-			Console.WriteLine(@"    \   /                         ");
-			Console.WriteLine(@"     \_/                          ");
-			Console.WriteLine();
+			ColorConsole.WriteAscii("   instagram".ToUpper(), Color.Chocolate);
+			ColorConsole.WriteAscii("   on crack".ToUpper(), Color.Chocolate);
+			ColorConsole.WriteAscii("   WITHOUT COCAINE".ToUpper(), Color.Chocolate);
 		}
 	}
 }

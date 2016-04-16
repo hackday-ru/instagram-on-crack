@@ -24,6 +24,5 @@ namespace Insta.Crack
 			Console.WriteLine($"you select - {selected}");
 			Console.ReadKey();
 		}
-
 	}
 }
