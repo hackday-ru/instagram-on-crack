@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Insta.Server.Infrastructure;
-using InstaSharp.Models;
 using System.Web;
 using System.Web.Mvc;
+using Insta.Server.Models;
 
 namespace Insta.Server.Controllers
 {
@@ -16,9 +16,9 @@ namespace Insta.Server.Controllers
         // GET: api/Image
         public JsonResult Get()
         {
-            return Json(new List<InstaMedia>
+            return Json(new List<MediaModel>
             {
-                new InstaMedia()
+                new MediaModel()
                 {
                     Data = new ImageToAsciiConverter().GetArrayImage(Server.MapPath("~/Content/test_large.jpg"), 100)
                 }
@@ -26,9 +26,9 @@ namespace Insta.Server.Controllers
         }
 
         //// GET: api/Image/5
-        //public InstaMedia Get(int id)
+        //public MediaModel Get(int id)
         //{
-        //    return new InstaMedia();
+        //    return new MediaModel();
         //}
 
         //// POST: api/Image
@@ -45,11 +45,5 @@ namespace Insta.Server.Controllers
         //public void Delete(int id)
         //{
         //}
-    }
-
-    public class InstaMedia
-    { 
-        public Media Media { get; set; }
-        public IEnumerable<string> Data { get; set; }
     }
 }

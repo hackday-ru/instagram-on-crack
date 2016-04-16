@@ -8,7 +8,7 @@ namespace Insta.Server.Infrastructure
 {
     public class ImageToAsciiConverter
     {
-        private string[] _AsciiChars = { "@", "#", "@", "%", "=", "+", "*", ":", "-", ".", " " };
+        private readonly string[] _AsciiChars = { "@", "&", "#", "%", "=", "+", "*", ":", "-", ".", " " };
         
         public string GetImage(string path, int scale)
         {
