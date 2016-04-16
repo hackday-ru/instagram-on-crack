@@ -47,8 +47,9 @@ namespace Insta.Server.Controllers
         //}
     }
 
-    public class InstaMedia : Media
+    public class InstaMedia
     { 
+        public Media Media { get; set; }
         public IEnumerable<string> Data { get; set; }
     }
 }

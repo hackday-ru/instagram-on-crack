@@ -8,7 +8,7 @@ namespace Insta.Server.Infrastructure
 {
     public class ImageToAsciiConverter
     {
-        private string[] _AsciiChars = { "@", "#", "@", "%", "=", "+", "*", ":", "-", ".", "&nbsp;" };
+        private string[] _AsciiChars = { "@", "#", "@", "%", "=", "+", "*", ":", "-", ".", " " };
         
         public string GetImage(string path, int scale)
         {
@@ -26,6 +26,12 @@ namespace Insta.Server.Infrastructure
         {
             //Load the Image from the specified path
             var image = new Bitmap(path, true);
+
+            return GetArrayImage(image, scale);
+        }
+
+        public IEnumerable<string> GetArrayImage(Bitmap image, int scale)
+        {
 
             image = GetReSizedImage(image, scale);
 
