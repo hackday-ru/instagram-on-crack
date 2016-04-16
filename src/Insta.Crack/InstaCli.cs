@@ -75,20 +75,22 @@ namespace Insta.Crack
 		private void GoFeed()
 		{
 			imageView.Title = "Моя лента";
+
+			_spash.Run(() => _feed = _api.GetMyFeed(""));
+			imageView.Media = _feed[_currentImage];
 			DisplayView();
 		}
 
 		private void GoTagSearch()
 		{
 			Console.Clear();
-			Console.SetCursorPosition(20, 35);
-			Console.BackgroundColor = ConsoleColor.DarkRed;
-
-			ColorConsole.WriteAscii("Имя тега:");
-			Console.WriteLine("Введите имя тега:");
+			Console.SetCursorPosition(20, 30);
+			Console.WriteLine("Имя тега:", ConsoleColor.Magenta);
 			Console.SetCursorPosition(20, 36);
 			var tag = Console.ReadLine();
-
+			_currentImage = 0;
+			_spash.Run(() => _feed = _api.GetTagFeed(tag));
+			imageView.Media = _feed[_currentImage];
 			imageView.Title = "Поиск по тегу - " + tag;
 
 			DisplayView();
