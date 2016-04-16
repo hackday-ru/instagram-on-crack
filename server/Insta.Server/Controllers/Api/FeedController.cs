@@ -40,7 +40,7 @@ namespace Insta.Server.Controllers.Api
             //var instaResp  = JsonConvert.DeserializeObject<MediasResponse>(feed);
             var instaResp = await GetFeed();
             var list = new List<MediaModel>();
-            foreach (var media in instaResp.Data.Take(1))
+            foreach (var media in instaResp.Data)
             {
                 var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
 
@@ -61,6 +61,7 @@ namespace Insta.Server.Controllers.Api
             if (oAuthResponse == null)
             {
                 return null;
+
             }
 
             //var users = new InstaSharp.Endpoints.Media(_config, oAuthResponse);
@@ -69,8 +70,7 @@ namespace Insta.Server.Controllers.Api
             var httpClient = new HttpClient();
             var res =
                 await
-                    httpClient.GetStringAsync("https://api.instagram.com/v1/users/self/feed?access_token=" +
-                                        oAuthResponse.AccessToken);
+                    httpClient.GetStringAsync("https://api.instagram.com/v1/users/self/media/recent/?access_token=" + oAuthResponse.AccessToken);
             var feed = JsonConvert.DeserializeObject<MediasResponse>(res);
             return feed;
         }
