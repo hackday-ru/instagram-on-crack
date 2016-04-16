@@ -8,6 +8,7 @@ using Insta.Server.Infrastructure;
 using System.Web;
 using System.Web.Mvc;
 using Insta.Server.Models;
+using InstaSharp.Models;
 
 namespace Insta.Server.Controllers
 {
@@ -45,11 +46,5 @@ namespace Insta.Server.Controllers
         //public void Delete(int id)
         //{
         //}
-    }
-
-    public class InstaMedia
-    { 
-        public Media Media { get; set; }
-        public IEnumerable<ASCIILine> Data { get; set; }
     }
 }
