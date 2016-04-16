@@ -15,8 +15,9 @@ namespace Insta.Crack
 		public static void Main(string[] args)
 		{
 			Console.Clear();
-			Console.WriteLine("test");
-			WriteLogo();
+			var cli = new InstaCli();
+			cli.Run();
+
 			var check = new RadioCommand();
 			var selected = check.Run(imageSize + 3, "test checkbx", new List<string> {"first option", "sdasd", "asdasd"});
 			Console.ForegroundColor = defaultColor;
@@ -24,23 +25,5 @@ namespace Insta.Crack
 			Console.ReadKey();
 		}
 
-		private static void WriteLogo()
-		{
-			const string Bold = "\x1b[1m";
-			const string Normal = "\x1b[22m";
-			const string Magenta = "\x1b[35m";
-			const string White = "\x1b[37m";
-			const string Default = "\x1b[39m";
-
-			Console.WriteLine();
-			Console.WriteLine(@"                                  ");
-			Console.WriteLine(@"   __   __     ON  CRACK          ");
-			Console.WriteLine(@"  /  \ /  \                       ");
-			Console.WriteLine(@"  \       /    WITHOUT COCAINE    ");
-			Console.WriteLine(@"   \     /                        ");
-			Console.WriteLine(@"    \   /                         ");
-			Console.WriteLine(@"     \_/                          ");
-			Console.WriteLine();
-		}
 	}
 }

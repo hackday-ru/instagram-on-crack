@@ -22,7 +22,13 @@ namespace Insta.Crack.Commands
 			foreach (var buttonCommand in _btns)
 			{
 				buttonCommand.Display(left, _top);
+				left += buttonCommand._name.Length + 7 + buttonCommand._trigger.ToString().Length;
 			}
+		}
+
+		public void Key(ConsoleKey key)
+		{
+			this._btns.Any(t => t.Run(key));
 		}
 	}
 }
