@@ -22,12 +22,11 @@ namespace Insta.Server.Controllers.Api
             var imageToAsciiConverter = new ImageToAsciiConverter();
             var hhtpClient = new HttpClient();
             var feed = File.ReadAllText(HttpContext.Current.Server.MapPath("~/App_Data/feed.json"));
-            
             var instaResp  = JsonConvert.DeserializeObject<MediasResponse>(feed);
             var list = new List<InstaMedia>();
             foreach (var media in instaResp.Data)
             {
-                var stream = await hhtpClient.GetStreamAsync(media.Images.LowResolution.Url);
+                var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
 
                 var instaMedia = new InstaMedia
                 {

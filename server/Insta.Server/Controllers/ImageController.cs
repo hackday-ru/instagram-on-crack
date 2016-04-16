@@ -8,6 +8,7 @@ using Insta.Server.Infrastructure;
 using InstaSharp.Models;
 using System.Web;
 using System.Web.Mvc;
+using Insta.Server.Models;
 
 namespace Insta.Server.Controllers
 {
@@ -50,6 +51,6 @@ namespace Insta.Server.Controllers
     public class InstaMedia
     { 
         public Media Media { get; set; }
-        public IEnumerable<string> Data { get; set; }
+        public IEnumerable<ASCIILine> Data { get; set; }
     }
 }
