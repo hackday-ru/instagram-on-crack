@@ -17,7 +17,7 @@ namespace Insta.Crack
 			imageView.UserName = userName;
 			imageView.Likes = 3;
 			imageView.Comments = 2;
-			imageView.Title = "Просмотр картинка";
+			imageView.Title = "Моя лента";
 			imageView.Image = File.ReadAllLines("./samples/cat.txt");
 			imageView.Bar = ImageButtons();
 			imageView.View();
@@ -34,7 +34,7 @@ namespace Insta.Crack
 					new ButtonCommand(ConsoleKey.UpArrow, "Лайк", ConsoleColor.Red,LikeCurrentImage),
 					new ButtonCommand(ConsoleKey.RightArrow, "Следующая",ConsoleColor.DarkGreen,NextImage)
 				},
-				60);
+				imageView.imageHeight + imageView.titleHeight + 4);
 		}
 
 		private void LikeCurrentImage()

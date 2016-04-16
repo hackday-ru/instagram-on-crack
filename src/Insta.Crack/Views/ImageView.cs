@@ -22,6 +22,8 @@ namespace Insta.Crack
 		public void View()
 		{
 			Console.Clear();
+			Console.BackgroundColor = ConsoleColor.Black;
+			Console.ForegroundColor = ConsoleColor.White;
 			this.DisplayTitle();
 			this.DisplayImage();
 			this.DisplayFooter();
@@ -39,6 +41,14 @@ namespace Insta.Crack
 			Console.SetCursorPosition(10, 1);
 			Console.WriteLine(UserName);
 			Console.SetCursorPosition(10, 2);
+			int[,] image = new int[4, 10]
+			{
+				{0,0,1,1,0,1,1,0,0,0},
+				{0,0,1,1,1,1,1,0,0,0},
+				{0,0,0,1,1,1,0,0,0,0},
+				{0,0,0,0,1,0,0,0,0,0}
+			};
+			ColorImage(image, ConsoleColor.DarkRed);
 		}
 
 		private void DisplayImage()
@@ -46,10 +56,9 @@ namespace Insta.Crack
 			for (int index = 0; index < imageHeight; index++)
 			{
 				Console.SetCursorPosition(0, titleHeight + index);
-				if (Image.Count > imageHeight)
+				if (Image.Count > index)
 				{
 					var line = Image[index];
-					Console.BackgroundColor = ConsoleColor.Black;
 					Console.WriteLine(line);
 				}
 			}
@@ -62,6 +71,19 @@ namespace Insta.Crack
 			Console.SetCursorPosition(0, imageHeight + titleHeight + 2);
 			Console.WriteLine("Comments: {0}", Comments);
 			this.Bar.Run();
+		}
+
+		private void ColorImage(int[,] image, ConsoleColor color)
+		{
+			for (int i = 0; i < image.GetLowerBound(0); i++)
+			{
+				for (int j = 0; j < image.GetLowerBound(1); j++)
+				{
+					Console.SetCursorPosition(i, j);
+					Console.BackgroundColor = image[i, j] == 1 ? color : ConsoleColor.Black;
+					Console.WriteLine("*");
+				}
+			}
 		}
 	}
 }
