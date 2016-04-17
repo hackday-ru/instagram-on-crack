@@ -7,9 +7,10 @@
         @if (Model != null)
         {
             <p class="lead">
-                Welcome @Model.FullName! <br />
+                Welcome @Model.FullName! <br/>
                 Please use following key for API calls - @ViewBag.Key
             </p>
+            <p><a href="@Url.Action("Feed", "Home")" class="btn btn-primary btn-lg">See My Feed &raquo;</a></p>
         }
         else
         {
