@@ -14,21 +14,18 @@ namespace Insta.Server.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly InstagramConfig config;
-
-        public HomeController()
-        {
-            var clientId = ConfigurationManager.AppSettings["client_id"];
-            var clientSecret = ConfigurationManager.AppSettings["client_secret"];
-            var redirectUri = ConfigurationManager.AppSettings["redirect_uri"];
-            var realtimeUri = "";
-
-            config = new InstagramConfig(clientId, clientSecret, redirectUri, realtimeUri);
-        }
-
         public ActionResult Index()
         {
-            return View();
+            var key = Request.Cookies["identity"]?.Value;
+            var auth = GetAuthResponse(key);
+            ViewBag.Key = key;
+            return View(auth?.User);
+        }
+
+        protected OAuthResponse GetAuthResponse(string key)
+        {
+            var store = (HttpContext.Cache["InstaSharp.AuthInfo"] as Dictionary<string, OAuthResponse>) ?? new Dictionary<string, OAuthResponse>();
+            return store.ContainsKey(key) ? store[key] : null;
         }
     }
 }

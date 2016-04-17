@@ -17,51 +17,39 @@ using Newtonsoft.Json;
 
 namespace Insta.Server.Controllers.Api
 {
-    public class FeedController : ApiController
+    public class FeedController : BaseApiController
     {
-        private readonly InstagramConfig _config;
-
-        public FeedController()
-        {
-            var clientId = ConfigurationManager.AppSettings["client_id"];
-            var clientSecret = ConfigurationManager.AppSettings["client_secret"];
-            var redirectUri = ConfigurationManager.AppSettings["redirect_uri"];
-            var realtimeUri = "";
-
-            _config = new InstagramConfig(clientId, clientSecret, redirectUri, realtimeUri);
-        }
         // GET: api/Feed
-        public async Task<IEnumerable<MediaModel>> Get()
+        public async Task<IEnumerable<MediaModel>> Get(string id)
         {
             var imageToAsciiConverter = new ImageToAsciiConverter();
             var hhtpClient = new HttpClient();
-            //var feed = File.ReadAllText(HttpContext.Current.Server.MapPath("~/App_Data/feed.json"));
-            
-            //var instaResp  = JsonConvert.DeserializeObject<MediasResponse>(feed);
-            var instaResp = await GetFeed();
-            var list = new List<MediaModel>();
-            foreach (var media in instaResp.Data)
-            {
-                var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
 
-                var instaMedia = new MediaModel
-                {
-                    Media = media,
-                    Data = imageToAsciiConverter.GetArrayImage(new Bitmap(stream), 100)
-                };
-                list.Add(instaMedia);
-            }
-            return list;
+            var instaResp = await GetFeed(id);
+
+            return await FetchImagesAndConvertToASCII(instaResp);
+            //var list = new List<MediaModel>();
+            //foreach (var media in instaResp.Data)
+            //{
+            //    var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
+
+            //    var instaMedia = new MediaModel
+            //    {
+            //        Media = media,
+            //        Data = imageToAsciiConverter.GetArrayImage(new Bitmap(stream), 100)
+            //    };
+            //    list.Add(instaMedia);
+            //}
+            //return list;
         }
 
-        private async Task<MediasResponse> GetFeed()
+        private async Task<MediasResponse> GetFeed(string key)
         {
-            var oAuthResponse = HttpContext.Current.Cache["InstaSharp.AuthInfo"] as OAuthResponse;
+            var oAuthResponse = GetAuthResponse(key);
 
             if (oAuthResponse == null)
             {
                 return null;
-
             }
 
             //var users = new InstaSharp.Endpoints.Media(_config, oAuthResponse);
@@ -73,27 +61,6 @@ namespace Insta.Server.Controllers.Api
                     httpClient.GetStringAsync("https://api.instagram.com/v1/users/self/media/recent/?access_token=" + oAuthResponse.AccessToken);
             var feed = JsonConvert.DeserializeObject<MediasResponse>(res);
             return feed;
-        }
-
-        // GET: api/Feed/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Feed
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Feed/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Feed/5
-        public void Delete(int id)
-        {
         }
     }
 }

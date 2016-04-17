@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Insta.Server.Infrastructure;
 using InstaSharp;
+using InstaSharp.Models.Responses;
 
 namespace Insta.Server.Controllers
 {
@@ -40,22 +42,38 @@ namespace Insta.Server.Controllers
             return Redirect(link);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> Login(string username, string password)
+        {
+            var scopes = new List<OAuth.Scope> { InstaSharp.OAuth.Scope.Basic };
+            var oAuthResponse = await Instagram.AuthByCredentialsAsync(username, password, config, scopes);
+
+            var guid  = AddAuthResponseToStore(oAuthResponse);
+
+            return Json(new { Key = guid });
+        }
+
+
         public async Task<ActionResult> OAuth(string code)
         {
-            // add this code to the auth object
             var auth = new OAuth(config);
 
-            // now we have to call back to instagram and include the code they gave us
-            // along with our client secret
             var oauthResponse = await auth.RequestToken(code);
 
-            // both the client secret and the token are considered sensitive data, so we won't be
-            // sending them back to the browser. we'll only store them temporarily.  If a user's session times
-            // out, they will have to click on the authenticate button again - sorry bout yer luck.
-            HttpContext.Cache["InstaSharp.AuthInfo"] = oauthResponse;
+            var guid = AddAuthResponseToStore(oauthResponse);
 
-            // all done, lets redirect to the home controller which will send some intial data to the app
+            Response.SetCookie(new System.Web.HttpCookie("identity", guid));
+
             return RedirectToAction("Index", "Home");
+        }
+
+        private string AddAuthResponseToStore(OAuthResponse oauthResponse)
+        {
+            var store = (HttpContext.Cache["InstaSharp.AuthInfo"] as Dictionary<string, OAuthResponse>) ?? new Dictionary<string, OAuthResponse>();
+            var guid = System.Guid.NewGuid().ToString();
+            store.Add(guid, oauthResponse);
+            HttpContext.Cache["InstaSharp.AuthInfo"] = store;
+            return guid;
         }
     }
 }

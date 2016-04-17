@@ -251,5 +251,3 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/server/Insta.Server/Infrastructure/insta.cs
-/server/Insta.Server/Infrastructure/Instagram.cs

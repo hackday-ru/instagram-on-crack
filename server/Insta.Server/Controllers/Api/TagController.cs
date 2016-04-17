@@ -16,43 +16,16 @@ using Newtonsoft.Json;
 
 namespace Insta.Server.Controllers.Api
 {
-	public class TagController : ApiController
+	public class TagController : BaseApiController
 	{
-		private readonly InstagramConfig _config;
-		public TagController()
+		public async Task<IEnumerable<MediaModel>> Get(string id)
 		{
-			var clientId = ConfigurationManager.AppSettings["client_id"];
-			var clientSecret = ConfigurationManager.AppSettings["client_secret"];
-			var redirectUri = ConfigurationManager.AppSettings["redirect_uri"];
-			var realtimeUri = "";
+			var instaResp = await GetFeed(id);
 
-			_config = new InstagramConfig(clientId, clientSecret, redirectUri, realtimeUri);
+            return await FetchImagesAndConvertToASCII(instaResp);
 		}
 
-		public async Task<IEnumerable<MediaModel>> Get()
-		{
-			var imageToAsciiConverter = new ImageToAsciiConverter();
-			var hhtpClient = new HttpClient();
-			//var feed = File.ReadAllText(HttpContext.Current.Server.MapPath("~/App_Data/feed.json"));
-
-			//var instaResp  = JsonConvert.DeserializeObject<MediasResponse>(feed);
-			var instaResp = await GetFeed();
-			var list = new List<MediaModel>();
-			foreach (var media in instaResp.Data)
-			{
-				var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
-
-				var instaMedia = new MediaModel
-				{
-					Media = media,
-					Data = imageToAsciiConverter.GetArrayImage(new Bitmap(stream), 100)
-				};
-				list.Add(instaMedia);
-			}
-			return list;
-		}
-
-		private async Task<MediasResponse> GetFeed(string id = "hackday")
+        private async Task<MediasResponse> GetFeed(string id = "hackday")
 		{
 			var accessToken = "16384709.6ac06b4.49b97800d7fd4ac799a2c889f50f2587";
 			var httpClient = new HttpClient();
