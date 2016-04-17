@@ -8,7 +8,7 @@ namespace Insta.Crack.Services
 
 	public class InstaServerApi
 	{
-		private static string baseUrl = "http://insta-on-crack.azurewebsites.net/";
+		private static string baseUrl = "http://insta-on-crack.azurewebsites.net";
 		private static string feedUrl = $"{baseUrl}/api/feed";
 		private static string loginUrl = $"{baseUrl}/auth/login";
 		private static string tagUrl = $"{baseUrl}/api/tag?id=";
