@@ -29,7 +29,7 @@ namespace Insta.Server.Controllers.Api
         protected OAuthResponse GetAuthResponse(string key)
         {
             var store = (HttpContext.Current.Cache["InstaSharp.AuthInfo"] as Dictionary<string, OAuthResponse>) ?? new Dictionary<string, OAuthResponse>();
-            return store.ContainsKey(key) ? store[key] : null;
+            return !string.IsNullOrWhiteSpace(key) && store.ContainsKey(key) ? store[key] : null;
         }
 
         protected async Task<IEnumerable<MediaModel>> FetchImagesAndConvertToASCII(MediasResponse instaResp)
