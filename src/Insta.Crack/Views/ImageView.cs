@@ -14,7 +14,7 @@ namespace Insta.Crack
 		public int titleHeight = 3;
 
 		public string Title { get; set; }
-		public string UserName { get; set; }
+		public string InstaKey { get; set; }
 		public DateTime Date => Media.Media.CreatedTime;
 		public IList<ASCIILine> Image => Media.Data.ToList();
 		public int Likes => Media.Media.Likes.Count;
@@ -38,7 +38,7 @@ namespace Insta.Crack
 			Console.SetCursorPosition(10, 0);
 			Console.WriteLine(Title);
 			Console.SetCursorPosition(10, 1);
-			Console.WriteLine(UserName);
+			Console.WriteLine(InstaKey);
 			Console.SetCursorPosition(10, 2);
 			int[,] image = new int[4, 10]
 			{

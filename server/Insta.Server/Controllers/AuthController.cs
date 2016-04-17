@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using Insta.Server.Infrastructure;
 using InstaSharp;
@@ -42,8 +43,8 @@ namespace Insta.Server.Controllers
             return Redirect(link);
         }
 
-        [HttpPost]
-        public async Task<JsonResult> Login(string username, string password)
+        [System.Web.Mvc.HttpPost]
+        public async Task<JsonResult> Login([FromUri]string username, [FromUri]string password)
         {
             var scopes = new List<OAuth.Scope> { InstaSharp.OAuth.Scope.Basic };
             var oAuthResponse = await Instagram.AuthByCredentialsAsync(username, password, config, scopes);

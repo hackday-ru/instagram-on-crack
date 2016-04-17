@@ -23,10 +23,10 @@ namespace Insta.Crack
 
 		public void Run()
 		{
-			var userName = _login.Run();
+			var instaKey = _login.Run();
 
-			imageView.UserName = userName;
-			_spash.Run(() => _feed = _api.GetMyFeed(userName));
+			imageView.InstaKey = instaKey;
+			_spash.Run(() => _feed = _api.GetMyFeed(instaKey));
 			imageView.Media = _feed[_currentImage];
 			imageView.Title = "Моя лента";
 			imageBtns = ImageButtons();

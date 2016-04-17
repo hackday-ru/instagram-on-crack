@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Insta.Crack.Services;
 using ColorConsole = Colorful.Console;
 
 namespace Insta.Crack.Views
@@ -21,9 +22,12 @@ namespace Insta.Crack.Views
 			Console.SetCursorPosition(20, 38);
 			Console.BackgroundColor = ConsoleColor.Black;
 			ColorConsole.WriteFormatted("Введите пароль:".ToUpper(), Color.Chocolate);
+			Console.ForegroundColor = ConsoleColor.Black;
 			Console.SetCursorPosition(20, 39);
 			var pass = Console.ReadLine();
-			return userName;
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.WriteLine("WE R LOGGINING U", ConsoleColor.Red);
+			return new InstaServerApi().LoginUser(userName, pass);
 		}
 
 		private void WriteLogo()
