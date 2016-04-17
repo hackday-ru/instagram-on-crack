@@ -25,7 +25,7 @@ namespace Insta.Server.Controllers
         protected OAuthResponse GetAuthResponse(string key)
         {
             var store = (HttpContext.Cache["InstaSharp.AuthInfo"] as Dictionary<string, OAuthResponse>) ?? new Dictionary<string, OAuthResponse>();
-            return store.ContainsKey(key) ? store[key] : null;
+            return !string.IsNullOrWhiteSpace(key) && store.ContainsKey(key) ? store[key] : null;
         }
     }
 }
