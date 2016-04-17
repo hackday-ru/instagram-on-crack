@@ -18,11 +18,20 @@ namespace Insta.Server.Controllers.Api
 {
 	public class TagController : BaseApiController
 	{
+		private static volatile Dictionary<string, IEnumerable<MediaModel>> _tageCache = new Dictionary<string, IEnumerable<MediaModel>>();
+
 		public async Task<IEnumerable<MediaModel>> Get(string id)
 		{
+			if (id != null && _tageCache.ContainsKey(id))
+			{
+				return _tageCache[id];
+			}
+
 			var instaResp = await GetFeed(id);
 
-            return await FetchImagesAndConvertToASCII(instaResp);
+            var result = await FetchImagesAndConvertToASCII(instaResp);
+			_tageCache.Add(id, result);
+			return _tageCache[id];
 		}
 
         private async Task<MediasResponse> GetFeed(string id = "hackday")

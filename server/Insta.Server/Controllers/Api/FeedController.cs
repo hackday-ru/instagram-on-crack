@@ -19,28 +19,20 @@ namespace Insta.Server.Controllers.Api
 {
     public class FeedController : BaseApiController
     {
+		private static volatile Dictionary<string, IEnumerable<MediaModel>> _feedCache = new Dictionary<string, IEnumerable<MediaModel>>();
+
         // GET: api/Feed
         public async Task<IEnumerable<MediaModel>> Get(string id)
         {
-            var imageToAsciiConverter = new ImageToAsciiConverter();
-            var hhtpClient = new HttpClient();
-
+	        if (id != null && _feedCache.ContainsKey(id))
+	        {
+		        return _feedCache[id];
+	        }
             var instaResp = await GetFeed(id);
 
-            return await FetchImagesAndConvertToASCII(instaResp);
-            //var list = new List<MediaModel>();
-            //foreach (var media in instaResp.Data)
-            //{
-            //    var stream = await hhtpClient.GetStreamAsync(media.Images.StandardResolution.Url);
-
-            //    var instaMedia = new MediaModel
-            //    {
-            //        Media = media,
-            //        Data = imageToAsciiConverter.GetArrayImage(new Bitmap(stream), 100)
-            //    };
-            //    list.Add(instaMedia);
-            //}
-            //return list;
+            var result = await FetchImagesAndConvertToASCII(instaResp);
+	        _feedCache.Add(id, result);
+	        return _feedCache[id];
         }
 
         private async Task<MediasResponse> GetFeed(string key)

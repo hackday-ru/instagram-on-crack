@@ -75,7 +75,9 @@ namespace Insta.Crack
 			Console.SetCursorPosition(0, imageHeight + titleHeight + 1);
 			Console.WriteLine("Likes: {0}", Likes);
 			Console.SetCursorPosition(0, imageHeight + titleHeight + 2);
-			Console.WriteLine("Comments: {0} - От {1}: {2}", Comments?.Count, Comments?.Data?.FirstOrDefault()?.From.Username, Comments?.Data?.FirstOrDefault()?.Text);
+			Console.WriteLine("Caption: {0}: {1}",
+				Media.Media?.Caption?.CreatedTime.ToShortDateString(),
+				Media.Media?.Caption?.Text);
 		}
 
 		private void ColorImage(int[,] image, ConsoleColor color)
