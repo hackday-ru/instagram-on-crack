@@ -16,12 +16,12 @@ namespace Insta.Crack.Views
 			this.WriteLogo();
 
 			Console.SetCursorPosition(20, 35);
-			ColorConsole.WriteFormatted("Введите логин:".ToUpper(), Color.Chocolate);
+			ColorConsole.WriteFormatted("Enter login:".ToUpper(), Color.Chocolate);
 			Console.SetCursorPosition(20, 36);
 			var userName = Console.ReadLine();
 			Console.SetCursorPosition(20, 38);
 			Console.BackgroundColor = ConsoleColor.Black;
-			ColorConsole.WriteFormatted("Введите пароль:".ToUpper(), Color.Chocolate);
+			ColorConsole.WriteFormatted("Enter password:".ToUpper(), Color.Chocolate);
 			Console.ForegroundColor = ConsoleColor.Black;
 			Console.SetCursorPosition(20, 39);
 			var pass = Console.ReadLine();
